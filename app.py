@@ -15,7 +15,7 @@ file_up = st.file_uploader("", type=["jpg", "png", "jpeg", "jfif", "webp"])
 cur_object = ''
 if file_up is not None:
     frame = Image.open(file_up)
-    frame = np.flipud(frame)
+    #frame = np.flipud(frame)
     decodedObjects = pyzbar.decode(frame,symbols=[ZBarSymbol.QRCODE])
     print(decodedObjects)
     if len(decodedObjects) > 0:
