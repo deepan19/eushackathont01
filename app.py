@@ -7,7 +7,6 @@ import pyzbar.pyzbar as pyzbar
 import pandas
 from pyzbar.pyzbar import decode
 from pyzbar.pyzbar import ZBarSymbol
-from kraken import binarization
 
 
 frame_skip = 300
