@@ -47,34 +47,31 @@ while run:
                 df = pandas.read_csv('assets/laptops.csv')
 
                 id_row =  df.loc[df['ID'] == allids[0]]
-                st.title(id_row['Brand'] + ' ' + id_row['Model'])
-                st.title(id_row['Price'])
-                st.image(id_row['Image'])
+                st.title(id_row.loc[0 , 'brand'] + ' ' + id_row.loc[0, 'model'])
+                st.title(id_row.loc[0 , 'Price'])
+                st.image(id_row.loc[0 , 'Image'])
 
-                st.markdown("Release Year : " + id_row['Release Year'])
-                st.markdown("Display : " + id_row['Display'])
-                st.markdown("Weight : " + id_row['Weight'])
-                st.markdown("Graphics : " + id_row['Graphic Card'])
-                st.markdown("Processor : " + id_row['Processor'])
+                st.markdown("Release Year : " + str(id_row.loc[0, 'Release Year']))
+                st.markdown("Display : " + id_row.loc[0, 'Display'])
+                st.markdown("Weight : " + id_row.loc[0, 'Weight'])
+                st.markdown("Graphics : " + id_row.loc[0, 'Graphic Card'])
+                st.markdown("Processor : " + id_row.loc[0, 'Processor'])
                 
 
             else:
                 df = pandas.read_csv('assets/phones.csv') 
 
-                st.title(id_row['Brand'] + ' ' + id_row['Model'])
-                st.title(id_row['Price'])
-                st.image(id_row['Image'])
+                id_row =  df.loc[df['ID'] == allids[0]]
+                st.title(id_row.loc[0 , 'brand'] + ' ' + id_row.loc[0, 'model'])
+                st.title(id_row.loc[0 , 'Price'])
+                st.image(id_row.loc[0 , 'Image'])
 
-                st.markdown("Release date : " + id_row['Release date'])
-                st.markdown("Camera : " + id_row['Camera'])
-                st.markdown("Battery : " + id_row['Battery'])
-                st.markdown("Storage options : " + id_row['Storage options'])
-                st.markdown("Colours : " + id_row['Colours'])
-
-
-            st.markdown()
-
-            st.markdown(decodedObjects[0].data.decode())
+                st.markdown("Release date : " + id_row.loc[0, 'release date'])
+                st.markdown("Refresh rate : " + id_row.loc[0, 'Refresh Rate'] )
+                st.markdown("Camera : " + id_row.loc[0, 'Camera'])
+                st.markdown("Battery : " + id_row.loc[0, 'Battery'])
+                st.markdown("Storage options : " + id_row.loc[0, 'Storage options'])
+                st.markdown("Colours : " + id_row.loc[0, 'Colours'])
 else:
     st.markdown(cur_object)
 
