@@ -9,32 +9,12 @@ import pandas
 
 frame_skip = 300
 st.image('assets/BB-logo.jpg')
-
-#run = st.checkbox('Scan')
-run = st.slider('Scan', 0, 1, 1)
-
-st.markdown(
-    f'''
-        <style>
-            .sidebar .sidebar-content {{
-                width: 375px;
-            }}
-        </style>
-    ''',
-    unsafe_allow_html=True
-)
-
-FRAME_WINDOW = st.image([])
-camera = cv2.VideoCapture(0)
-
-cur_frame = 0
-cur_object = 'Stopped'
-
-while run:
-    _, frame = camera.read()
-    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    FRAME_WINDOW.image(frame)
+file_up = st.file_uploader("", type=["jpg", "png", "jpeg", "jfif", "webp"])
+cur_object = ''
+if file_up is not None:
+    frame = Image.open(file_up)
     decodedObjects = pyzbar.decode(frame)
+    print(decodedObjects)
     if len(decodedObjects) > 0:
         if(cur_object != decodedObjects[0].data.decode()):
             cur_object = decodedObjects[0].data.decode()
