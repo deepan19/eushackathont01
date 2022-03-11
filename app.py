@@ -32,7 +32,10 @@ FRAME_WINDOW = st.image([])
 camera = cv2.VideoCapture(0)
 
 cur_frame = 0
-cur_object = 'Stopped'
+cur_object = 'Switch to 1 to Scan.'
+st.header("Your Viewing History:")
+st.title("......................................................")
+
 
 while run:
     _, frame = camera.read()
