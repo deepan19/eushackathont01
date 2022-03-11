@@ -5,10 +5,24 @@ from PIL import Image
 import cv2
 import pyzbar.pyzbar as pyzbar
 
-frame_skip = 300
-st.title('Better Buy')
 
-run = st.checkbox('Run')
+frame_skip = 300
+st.image('assets/BB-logo.jpg')
+
+#run = st.checkbox('Scan')
+run = st.slider('Scan', 0, 1, 1)
+
+st.markdown(
+    f'''
+        <style>
+            .sidebar .sidebar-content {{
+                width: 375px;
+            }}
+        </style>
+    ''',
+    unsafe_allow_html=True
+)
+
 FRAME_WINDOW = st.image([])
 camera = cv2.VideoCapture(0)
 
