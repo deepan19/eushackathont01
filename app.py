@@ -1,13 +1,17 @@
+import fileinput
 import streamlit as st
 import numpy as np
 from PIL import Image
 
 st.title('Better Buy')
 
-picture = st.camera_input("Take a picture")
+fileup = st.file_uploader("",type=["jpeg","jpg","png","jfif","webp"])
 
-if picture:
-    st.image(picture)
+if fileup:
+
+    image = Image.open(fileup)
+    
+    st.image(image, use_column_width=True)
 
 
 
