@@ -5,6 +5,9 @@ from PIL import Image
 import cv2
 import pyzbar.pyzbar as pyzbar
 import pandas
+from pyzbar.pyzbar import decode
+from pyzbar.pyzbar import ZBarSymbol
+from kraken import binarization
 
 
 frame_skip = 300
@@ -13,13 +16,15 @@ file_up = st.file_uploader("", type=["jpg", "png", "jpeg", "jfif", "webp"])
 cur_object = ''
 if file_up is not None:
     frame = Image.open(file_up)
-    decodedObjects = pyzbar.decode(frame)
+    frame = np.flipud(frame)
+    decodedObjects = pyzbar.decode(frame,symbols=[ZBarSymbol.QRCODE])
     print(decodedObjects)
     if len(decodedObjects) > 0:
         if(cur_object != decodedObjects[0].data.decode()):
             cur_object = decodedObjects[0].data.decode()
             
             device = cur_object.split('-',1)[0] == 'l'
+            device2 = cur_object.split('-',1)[0] == 'p'
 
             allids = cur_object.split('\n')
 
@@ -38,7 +43,7 @@ if file_up is not None:
                 st.markdown("Processor : " + id_row.loc[0, 'Processor'])
                 
 
-            else:
+            elif(device2):
                 df = pandas.read_csv('assets/phones.csv') 
 
                 id_row =  df.loc[df['ID'] == allids[0]]
