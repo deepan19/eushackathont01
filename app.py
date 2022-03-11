@@ -3,25 +3,29 @@ import streamlit as st
 import numpy as np
 from PIL import Image
 import cv2
+import pyzbar.pyzbar as pyzbar
 
+frame_skip = 300
 st.title('Better Buy')
 
-fileup = st.file_uploader("",type=["jpeg","jpg","png","jfif","webp"])
+run = st.checkbox('Run')
+FRAME_WINDOW = st.image([])
+camera = cv2.VideoCapture(0)
 
-if fileup:
+cur_frame = 0
+cur_object = 'Stopped'
 
-    image = np.array(Image.open(fileup))
-    
-    qrCodeDetector = cv2.QRCodeDetector()
-
-    decodedText, points, _ = qrCodeDetector.detectAndDecode(image)
-
-    if points is not None:
-        st.markdown(decodedText)
-     
-    else:
-        print("QR code not detected")
-
+while run:
+    _, frame = camera.read()
+    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    FRAME_WINDOW.image(frame)
+    decodedObjects = pyzbar.decode(frame)
+    if len(decodedObjects) > 0:
+        if(cur_object != decodedObjects[0].data.decode()):
+            cur_object = decodedObjects[0].data.decode()
+            st.markdown(decodedObjects[0].data.decode())
+else:
+    st.markdown(cur_object)
 
 
     
