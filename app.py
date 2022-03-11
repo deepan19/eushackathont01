@@ -1,7 +1,6 @@
 import fileinput
 import streamlit as st
 import numpy as np
-import sys, qrcode
 from PIL import Image
 import cv2
 
