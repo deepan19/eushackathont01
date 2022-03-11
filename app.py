@@ -10,27 +10,14 @@ fileup = st.file_uploader("",type=["jpeg","jpg","png","jfif","webp"])
 
 if fileup:
 
-    image_file = Image.open(fileup)
+    image = np.array(Image.open(fileup))
     
     qrCodeDetector = cv2.QRCodeDetector()
-
-    image = cv2.imread(fileup)
 
     decodedText, points, _ = qrCodeDetector.detectAndDecode(image)
 
     if points is not None:
- 
-        nrOfPoints = len(points)
-    
-        for i in range(nrOfPoints):
-            nextPointIndex = (i+1) % nrOfPoints
-            cv2.line(image, tuple(points[i][0]), tuple(points[nextPointIndex][0]), (255,0,0), 5)
-    
-        print(decodedText)    
-    
-        cv2.imshow("Image", image)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        st.markdown(decodedText)
      
     else:
         print("QR code not detected")
