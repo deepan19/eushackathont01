@@ -10,11 +10,11 @@ fileup = st.file_uploader("",type=["jpeg","jpg","png","jfif","webp"])
 
 if fileup:
 
-    image = Image.open(fileup)
+    image_file = Image.open(fileup)
     
-    st.image(image, use_column_width=True)
-
     qrCodeDetector = cv2.QRCodeDetector()
+
+    image = cv2.imread(fileup)
 
     decodedText, points, _ = qrCodeDetector.detectAndDecode(image)
 
