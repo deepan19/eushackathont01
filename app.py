@@ -31,13 +31,14 @@ cur_object = 'Stopped'
 
 while run:
     _, frame = camera.read()
-    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    FRAME_WINDOW.image(frame)
-    decodedObjects = pyzbar.decode(frame)
-    if len(decodedObjects) > 0:
-        if(cur_object != decodedObjects[0].data.decode()):
-            cur_object = decodedObjects[0].data.decode()
-            st.markdown(decodedObjects[0].data.decode())
+    if(frame is not None):
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        FRAME_WINDOW.image(frame)
+        decodedObjects = pyzbar.decode(frame)
+        if len(decodedObjects) > 0:
+            if(cur_object != decodedObjects[0].data.decode()):
+                cur_object = decodedObjects[0].data.decode()
+                st.markdown(decodedObjects[0].data.decode())
 else:
     st.markdown(cur_object)
 
